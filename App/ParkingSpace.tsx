@@ -47,6 +47,7 @@ export default function ParkingSpace({route}: any) {
           time: details[space - 1]?.time,
           reg: details[space - 1]?.reg,
         },
+        markSpaceAsUnoccupied: (space: number) => markSpaceAsUnoccupied(space),
       });
     } else {
       setSelected(space);
@@ -74,6 +75,11 @@ export default function ParkingSpace({route}: any) {
     setTime(selectedTime);
     hidePicker();
   };
+  function markSpaceAsUnoccupied(space: number) {
+    const newDetails = [...details];
+    newDetails[space - 1] = null;
+    setDetails(newDetails);
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container} horizontal={true}>

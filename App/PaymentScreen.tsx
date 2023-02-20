@@ -6,7 +6,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export default function PaymentScreen({route}: any) {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const {spaces, space, details} = route.params;
+  const {spaces, space, details, markSpaceAsUnoccupied} = route.params;
   const [parkingCharge, setCharges] = useState<number>();
   const [timeSpent, setTimeSpent] = useState<string>('');
 
@@ -50,7 +50,8 @@ export default function PaymentScreen({route}: any) {
       });
       if (resultSet.ok) {
         Alert.alert(`Payment Sucessful`);
-        navigation.navigate('Parking Spaces', {numspaces: spaces});
+        markSpaceAsUnoccupied(space);
+        navigation.goBack();
       } else {
         Alert.alert('Payment Failed');
       }
