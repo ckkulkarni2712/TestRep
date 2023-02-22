@@ -84,12 +84,14 @@ export default function ParkingSpace({route}: any) {
   return (
     <ScrollView contentContainerStyle={styles.container} horizontal={true}>
       <TouchableOpacity
+        testID="add-parking-space-button"
         style={styles.buttonStyling1}
         onPress={handleAddParkingSpace}>
         <Text>Create New Parking</Text>
       </TouchableOpacity>
       {parkingSpaces.map(space => (
         <TouchableOpacity
+          testID={`parking-space-${space}`}
           onPress={() => handleSelected(space)}
           key={space}
           style={styles.parkingSpace}>
@@ -108,7 +110,7 @@ export default function ParkingSpace({route}: any) {
       ))}
 
       {selectedSpace > 0 && (
-        <View style={styles.formContainer}>
+        <View style={styles.formContainer} testID="selected-parking-space">
           <Text>{reg}</Text>
           <DateTimePickerModal
             isVisible={showPicker}
@@ -116,21 +118,24 @@ export default function ParkingSpace({route}: any) {
             onConfirm={setParkingTime}
             onCancel={() => hidePicker()}
           />
-          <Text>Parking Time (tap to change)</Text>
+          <Text testID="parking-time-label">Parking Time (tap to change)</Text>
           <TouchableOpacity
             style={styles.setTimeButton}
             onPress={() => {
               setPicker(true);
-            }}>
-            <Text>{time.toLocaleTimeString()}</Text>
+            }}
+            testID="change-time-button">
+            <Text testID="parking-time">{time.toLocaleTimeString()}</Text>
           </TouchableOpacity>
-          <Text>Car Registration</Text>
+          <Text testID="car-registration-label">Car Registration</Text>
           <TextInput
             placeholder="Enter vehicle registration"
             onChangeText={setVehicleRegistration}
             style={styles.formInput}
+            testID="vehicle-registration-input"
           />
           <TouchableOpacity
+            testID="submit-button"
             onPress={() => handleParkVehicle(selectedSpace)}
             style={styles.buttonStyling2}>
             <Text style={{color: 'white'}}>Submit</Text>
@@ -142,7 +147,8 @@ export default function ParkingSpace({route}: any) {
               setSelected(0);
               setVehicleRegistration('');
               setParkingTime(new Date());
-            }}>
+            }}
+            testID="close-button">
             <Text style={{color: 'white'}}>Close</Text>
           </TouchableOpacity>
         </View>

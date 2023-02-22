@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
-import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export default function Base() {
   const [numspaces, setNumSpaces] = useState('');
-  const dispatch = useDispatch();
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const handleInputChange = (numspaces: string) => {
     setNumSpaces(numspaces);
@@ -23,6 +21,7 @@ export default function Base() {
       />
       <View style={styles.buttonStyling}>
         <Button
+          testID="submit-button"
           disabled={numspaces === ''}
           title="Submit"
           onPress={() => {
